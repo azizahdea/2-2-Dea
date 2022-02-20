@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ContactController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-   return view('welcome');
-});
-
-Route::get('/', function () {
     return view('home');
  });
 
@@ -26,3 +22,12 @@ Route :: get('/about', function(){
         "nama" => "Azizah Dea"
     ]);
 });
+
+Route::get('/gallery', function () {
+    return view('gallery');
+});
+
+Route::resource('/contact', ContactController::class);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
