@@ -30,4 +30,23 @@ Route::get('/gallery', function () {
 Route::resource('/contact', ContactController::class);
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/home', function(){
+    return view('admin.home', [
+        "title" => "Home"
+    ]);
+});
+Route::get('/delete_contact/{id}', ContactController::class . '@destroy');
+Route::get('/edit_contact/{id}', ContactController::class . '@edit');
+Route::post('/update_contact', ContactController::class . '@update');
+
+
+
+Route::resource('/contact', ContactController::class);
+
+Auth::routes();
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
+
